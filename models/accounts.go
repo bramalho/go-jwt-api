@@ -45,7 +45,7 @@ func (account *Account) Validate() (map[string]interface{}, bool) {
 		return u.Message(false, "Email address already userd"), false
 	}
 
-	return u.Message(false, "Ok"), true
+	return u.Message(false, "success"), true
 }
 
 // Create a new user account
@@ -80,7 +80,7 @@ func Login(email, password string) map[string]interface{} {
 	err := GetDB().Table("accounts").Where("email = ?", email).First(account).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return u.Message(false, "Email address not found")
+			return u.Message(false, "Invalid credentials")
 		}
 		return u.Message(false, "Connection error. Please retry")
 	}

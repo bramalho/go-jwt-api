@@ -22,7 +22,6 @@ var CreateAccount = func(w http.ResponseWriter, r *http.Request) {
 
 // Authenticate authenticates user
 var Authenticate = func(w http.ResponseWriter, r *http.Request) {
-
 	account := &models.Account{}
 	err := json.NewDecoder(r.Body).Decode(account)
 	if err != nil {

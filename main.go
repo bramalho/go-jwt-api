@@ -17,22 +17,19 @@ func main() {
 	router.HandleFunc("/api/login", controllers.Authenticate).Methods("POST")
 	router.HandleFunc("/api/account", controllers.GetAccount).Methods("GET")
 
-	router.HandleFunc("/api/contacts/new", controllers.CreateContact).Methods("POST")
-	router.HandleFunc("/api/contacts", controllers.GetContactsFor).Methods("GET")
+	router.HandleFunc("/api/contacts", controllers.CreateContact).Methods("POST")
+	router.HandleFunc("/api/contacts", controllers.GetContacts).Methods("GET")
 
 	router.Use(app.JwtAuthentication)
 
-	//router.NotFoundHandler = app.NotFoundHandler
-
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8000" //localhost
+		port = "8000"
 	}
 
+	log.Println("Listning at http://localhost:8000")
 	err := http.ListenAndServe(":"+port, router)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	log.Panicln("Listning at http://localhost:8000")
 }
